@@ -73,7 +73,7 @@ pip install -r requirements.txt
 Start the Streamlit application with:
 
 ```bash
-streamlit run src/predict.py
+python -m streamlit run src/predict.py
 ```
 
 The application will launch in your browser and allow you to enter property details and generate a prediction.
