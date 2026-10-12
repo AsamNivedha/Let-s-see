@@ -1,60 +1,53 @@
+
 # House Price Predictor
 
-House Price Predictor learning web application that estimates house prices based on property characteristics. It combines a trained machine learning pipeline with an interactive Streamlit interface to provide quick price estimates from user-provided property details.
+A machine learning web application that estimates house prices based on property characteristics using a trained Scikit-learn pipeline and an interactive Streamlit interface.
 
 ## Features
 
-- Predict house prices using a trained machine learning model
-- Interactive and user-friendly Streamlit interface
-- Supports numerical and categorical property features
-- Displays the estimated price along with the selected property details
-- Automated model testing using Pytest
-- Separate training, prediction, and application components
+- Predict house prices using user-provided property details.
+- Interactive Streamlit interface for entering property characteristics.
+- Integrated machine learning pipeline for price estimation.
+- Prediction explanations and property insights.
+- Automated testing using Pytest.
+- Continuous integration using GitHub Actions.
 
 ## Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| Python | Core development |
-| Pandas | Data processing |
-| Scikit-learn | Machine learning |
-| Streamlit | Web application |
-| Joblib | Model serialization |
-| Pytest | Automated testing |
+Python · Pandas · Scikit-learn · Streamlit · Joblib · Pytest
 
 ## How It Works
 
-```text
-Property Details
-       ↓
-Input Processing
-       ↓
-Trained ML Pipeline
-       ↓
-Price Prediction
-       ↓
-Estimated House Price
-```
+Property Details → Input Processing → Trained ML Pipeline → Price Prediction → Estimated House Price
 
-The application takes property characteristics such as area, bedrooms, bathrooms, stories, parking, furnishing status, and other property features. These inputs are processed and passed to the trained machine learning pipeline to generate an estimated house price.
+## Issues Identified & Fixes Implemented
+
+- **Application launch:** Running `streamlit run src/predict.py` caused `ModuleNotFoundError: No module named 'src'`; fixed by launching the application from the project root using `python -m streamlit run src/predict.py`.
+- **Prediction integration:** Integrated the trained `house_price_pipeline.pkl` model into the prediction workflow to generate estimated prices from user-entered property details.
+- **Code structure:** Separated the application interface, prediction logic, and model training into `predict.py`, `predictor.py`, and `train.py` for improved maintainability.
+- **Automated testing:** Implemented Pytest coverage for the model and prediction workflow and verified that all 16 tests passed.
+- **Continuous integration:** Configured `.github/workflows/tests.yml` to install dependencies and execute automated tests on pushes and pull requests.
+- **Documentation:** Updated the README with the project structure, setup instructions, application launch command, testing steps, and prediction disclaimer.
 
 ## Project Structure
 
 ```text
-AI-ML/
+house_price_prediction/
 ├── .github/
 │   └── workflows/
 │       └── tests.yml
 ├── models/
-│   └── house_price_pipeline.pkl
-├── tests/
-│   └── test_model.py
+│   ├── house_price_pipeline.pkl
+│   └── model_metrics.json
 ├── src/
 │   ├── predict.py
 │   ├── predictor.py
 │   ├── train.py
 │   └── train.ipynb
+├── tests/
+│   └── test_model.py
 ├── data.csv
+├── pytest.ini
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -62,7 +55,7 @@ AI-ML/
 
 ## Installation
 
-Clone the repository and install the required dependencies:
+Install the required dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -70,32 +63,24 @@ pip install -r requirements.txt
 
 ## Run the Application
 
-Start the Streamlit application with:
+From the `house_price_prediction` project directory, run:
 
 ```bash
 python -m streamlit run src/predict.py
 ```
 
-The application will launch in your browser and allow you to enter property details and generate a prediction.
-
 ## Run Tests
 
-The project includes automated tests for the machine learning components.
+Execute the automated test suite:
 
 ```bash
-pytest -v
+python -m pytest -v
 ```
 
-## Machine Learning
+## Testing and Continuous Integration
 
-The trained model is stored as:
-
-```text
-models/house_price_pipeline.pkl
-```
-
-The project separates model training, prediction logic, and the user interface to keep the application modular and easier to maintain.
+The project includes automated tests for model loading, prediction logic, explanation consistency, and error handling. GitHub Actions runs the test suite on pushes and pull requests.
 
 ## Disclaimer
 
-HomeValue provides machine learning-based estimates using the available training data and the characteristics entered by the user. The predictions are estimates and should not be considered guaranteed market prices or professional property valuations.
+Predictions are estimates based on the available training data and user-provided property details. They are not guaranteed market prices or professional property valuations.
